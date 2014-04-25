@@ -11,6 +11,8 @@ void print_test() {
 
 int main(int argc, char** argv)
 {
+    print_master();
+    print_test();
     printf("hello world!\n");
     return 0;
 }
