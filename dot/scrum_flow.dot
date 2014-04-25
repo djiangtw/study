@@ -1,0 +1,7 @@
+digraph G {
+    label = "Scrum Flow - Sprint (DJ's note)"
+    "plan meeting" -> "daily meeting" -> "review meeting" -> "retrospective meeting" -> "plan meeting";
+    "daily meeting" -> "daily meeting" [color=red];
+    "create PBIs" -> "prioritization" -> "team's agreement"
+    "team's agreement" -> "prioritization"
+}

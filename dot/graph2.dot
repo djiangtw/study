@@ -1,0 +1,6 @@
+digraph G {
+    label = "Weekly Report"
+    start -> working;
+    working -> create_report [color=red, label="Wednesday?"];
+    create_report -> upload -> working;
+}

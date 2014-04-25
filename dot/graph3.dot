@@ -1,0 +1,13 @@
+digraph G {
+    label = "Part of Basic ERP"
+    customer -> sales;
+    sales -> inventory;
+    sales -> producer;
+    producer -> vendor;
+    producer -> workshop;
+    workshop -> HR;
+    HR -> Fin;
+    sales -> Fin;
+    producer -> Fin;
+    vendor -> Fin;
+}

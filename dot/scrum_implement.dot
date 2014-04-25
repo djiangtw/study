@@ -1,0 +1,14 @@
+digraph G {
+    size="8,8";
+    compound=true;
+    subgraph cluster0 {
+        node [style=filled,color=white];
+        style=filled;
+        color=lightgrey;
+        "code" -> "build" -> "test" -> "fix" -> "code";
+        label = "Implementation";
+    }
+    "Requirement" -> "code" [lhead=cluster0];
+    "fix" -> "Increment/Product" [ltail=cluster0];
+    label = "Scrum Flow - Implementation (DJ's note)"
+}
