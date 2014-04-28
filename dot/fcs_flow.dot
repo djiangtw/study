@@ -1,0 +1,13 @@
+digraph G {
+    a -> b -> c -> d -> e -> f -> g -> h;
+    a [shape = box, label = "Enable PLL_BYPASS"]
+    b [shape = box, label = "Enable FW_CHANGE"]
+    c [shape = box, label = "Reset PLLs"]
+    d [shape = ellipse, label = "Wait 24 * REF_CLK"]
+    e [shape = box, label = "Clear Reset PLLs"]
+    f [shape = ellipse, label = "Wait 400us"]
+    g [shape = box, label = "Disable PLL_BYPASS"]
+    h [shape = box, label = "Disable FW_CHANGE"]
+//    "Enable PLLBYPASS" --> "Enable FWCHANGE" --> "Update PLL ctrl 012"
+    label = "FCS configuration flow"
+}
