@@ -11,3 +11,6 @@ Backup
 -----
 create a backup folder in local disk.
 
+Dillinger
+-----
+Evaluating this tool.
