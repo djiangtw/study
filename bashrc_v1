@@ -1,0 +1,21 @@
+PYTHONPATH=$PYTHONPATH:/home/danny/.bin/lib/
+export PYTHONPATH
+VIMRUNTIME=/home/danny/.bin/vim74/runtime
+export VIMRUNTIME
+
+export CSCOPEVER=OS
+alias vi="~/.bin/vi"
+alias vim=vim
+alias cscope=cscope
+alias vi2="vim -u ~/.vimrc"
+
+alias remove_color="sed -r 's/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g'"
+alias tmux="tmux -2"
+
+awp () { awk '{print $'$1'}'; }
+newtag () { rm tags; rm cscope.*; ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .; cscope -Rbkq;}
+
+hexdump_32() { hexdump $1 -e '4/4 "%.8x " "\n"';}
+
+rsync_update () { rsync -avzh --progress --delete -e ssh /cygdrive/c/djiang/ dannyj@lbs-sdoa-4:/home/danny/djiang;}
+rsync_backup () { rsync -avzh --progress --delete -e ssh danny@server:/home/danny/ /cygdrive/c/djiang;}
