@@ -1,0 +1,239 @@
+set tabstop=4
+set shiftwidth=4
+set nobackup
+set nu
+set nocompatible
+set backspace=indent,eol,start
+set autoindent
+" auto match blanket
+set backspace=2
+set smartindent
+set expandtab
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+set clipboard=unnamedplus
+
+set incsearch
+" list the line and row number
+set ruler
+
+set showcmd
+"if &t_Co > 2 || has("gui_running")
+  syntax on
+set hlsearch
+"  endif
+
+" set mouse=a, let you be able to change cursor by mouse
+"set mouse=a
+set mouse=nv
+
+" following two lines remap copy/paste plus shit key
+"map m :set mouse=a<CR>
+"map <Leader>m :set mouse=<CR>
+
+" make your scrolling to control up and down
+set ttymouse=xterm
+:map <M-Esc>[62~ <MouseDown>
+:map! <M-Esc>[62~ <MouseDown>
+
+:map <M-Esc>[63~ <MouseUp>
+:map! <M-Esc>[63~ <MouseUp>
+:map <M-Esc>[64~ <S-MouseDown>
+:map! <M-Esc>[64~ <S-MouseDown>
+:map <M-Esc>[65~ <S-MouseUp>
+:map! <M-Esc>[65~ <S-MouseUp>
+
+" Underline the current line with dashes in normal mode
+"nnoremap <F5> yyp<c-v>$r-
+
+" Underline the current line with dashes in insert mode
+"inoremap <F5> <Esc>yyp<c-v>$r-A
+
+" Ignore case while searching
+set ignorecase
+
+" set indent with c code
+"set cindent
+
+" display partial command as you type
+set showcmd
+
+" setlocal cursorline
+" just change current windows's setting, not global
+
+" set a underline to highlight current line
+set cursorline
+
+
+ab tt TlistToggle
+
+" Danny Xin-Yi Jiang defined.
+ab #b /***************************************
+ab #e <space>**************************************/
+"ab DJ Danny Xin-Yi Jiang
+ab #i #include
+ab #d #define
+" iab fhead
+" \<CR>/*****************************************************************
+" \<CR>* Function:
+" \<CR>*
+" \<CR>* Abstract:
+" \<CR>*
+" \<CR>* Return:
+" \<CR>*
+" \<CR>* Notices:
+" \<CR>****************************************************************/
+
+" Map <F2> to open/close Taglist
+"noremap <F2> :TlistToggle<CR>
+
+" Map <F2 to Ack -i
+"noremap <F2> :Ack -i<CR>
+noremap <F10> :Ack -i
+
+" Map <F3> to previous tab
+noremap <F3> :tabp<CR>
+
+" Map <f4> to next tab
+noremap <F4> :tabn<CR>
+
+" Map <F12> to exit without save
+noremap <F12> :qa<CR>
+
+" turn off line wrap
+set nowrap
+
+" use + to folding and < > to unfolding
+"set foldmethod=marker
+"set foldmarker={,}
+"set foldlevel=3
+:map + v%zf
+
+vmap <TAB> >gv
+vmap <S-TAB> gv
+
+" copy and paste
+" vmap <C-c> "+yi
+" vmap <C-x> "+c
+" vmap <C-v> c<ESC>"+p
+" imap <C-v> <ESC>"+pa
+
+" cscope setting
+"if has("cscope")
+"       set csprg=/usr/bin/cscope
+"       set csto=0
+"       set cst
+"       set nocsverb
+"       " add any database in current directory
+"       if filereadable("cscope.out")
+"           cs add cscope.out
+"       " else add database pointed to by environment
+"       elseif $CSCOPE_DB != ""
+"           cs add $CSCOPE_DB
+"       endif
+"       set csverb
+"endif
+"
+"       map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
+"       map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
+"       map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
+"
+"       " Using 'CTRL-_bar' then a search type makes the vim window
+"       " split horizontally, with search result displayed in
+"       " the new window.
+"
+"       nmap <C-_>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+"       nmap <C-_>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"       nmap <C-_>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+"
+"       " Hitting CTRL-_ *twice* before the search type does a vertical
+"       " split instead of a horizontal one
+"
+"       nmap <C-_><C-_>s
+"               \:vert scs find s <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_><C-_>g
+"               \:vert scs find g <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_><C-_>c
+"               \:vert scs find c <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_><C-_>t
+"               \:vert scs find t <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_><C-_>e
+"               \:vert scs find e <C-R>=expand("<cword>")<CR><CR>
+"       nmap <C-_><C-_>i
+"               \:vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"       nmap <C-_><C-_>d
+"               \:vert scs find d <C-R>=expand("<cword>")<CR><CR>
+"
+"set tag=../tags
+
+"" // Set the height of Source Explorer window
+let g:SrcExpl_winHeight = 8
+
+"" // Set "Enter" key to jump into the exact definition context
+let g:SrcExpl_jumpKey = "<ENTER>"
+
+"" // Set "Space" key for back from the definition context
+let g:SrcExpl_gobackKey = "<SPACE>"
+
+"" // Enable/Disable the local definition searching, and note that this is not
+"" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
+"" // It only searches for a match with the keyword according to command 'gd'
+"let g:SrcExpl_searchLocalDef = 1
+"
+"" // Let the Source Explorer update the tags file when opening
+"let g:srcexpl_isupdatetags = 1
+"" // Use program 'ctags' with argument '--sort=foldcase -R' to create or
+
+"" // update a tags file
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R *; cscope -Rbkq"
+
+" // Set <F9> key for updating the tags file artifically
+let g:SrcExpl_updateTagsKey = "<F9>"
+
+" Open and close all the three plugins on the same time
+nmap <F5>       :TrinityToggleAll<CR>
+
+" Open and close the srcedxpl.vim separately
+nmap <F6>       :TrinityToggleSourceExplorer<CR>
+
+" Open and close the taglist.vim separately
+nmap <F7>       :TrinityToggleTagList<CR>
+
+" Open and close NERD_tree.vim separately
+nmap <F8>       :TrinityToggleNERDTree<CR>
+
+"color scheme used for refine diff color
+"highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white
+"highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black
+"highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
+"highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+highlight Search guibg=black guifg=yellow gui=underline
+
+" Section:  For "peaksea: Refined color, contains both gui and cterm256 for dark and light backgroud
+if ! has("gui_running")
+    set t_Co=255
+endif
+set t_Co=256
+
+" feel free to choose :set background=light for a different style
+set background=dark
+"set background=light
+"colors peaksea
+"colors pride
+"colors 256-jungle
+"colors CandyPaper
+"colorscheme SweetCandy
+"colorscheme PaperColor
+"colorscheme primary
+let g:molokai_original = 1
+
+" filetype plugin on
+" filetype on
+filetype plugin indent on
+set omnifunc=syntaxcomplete#Complete
+imap <silent> ` <C-X><C-O>
