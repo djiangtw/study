@@ -1,0 +1,4 @@
+#!/tools/bin/bash
+make clean
+make
+
