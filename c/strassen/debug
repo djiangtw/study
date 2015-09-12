@@ -1,2 +1,2 @@
-#!/usr/bin/bash
+#!/bin/bash
 gdb -s foo.debug -e foo
