@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include "matrix.h"
 #include "strassen.h"
+#include "s.h"
 #include "test_config.h"
 #include <float.h>
 #include <math.h>
-#include "s.h"
 
 /*double max_arr_value = floor(sqrt(DBL_MAX));*/
 int round_up_power_of_two(int n)

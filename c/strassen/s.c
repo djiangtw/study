@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /*#include "matrix.h"*/
-#include "strassen.h"
+#include "s.h"
 
 extern matrix_s new_matrix_s(double** a);
 /*

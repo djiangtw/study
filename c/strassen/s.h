@@ -1,5 +1,5 @@
-#ifndef __STRASSEN_H
-#define __STRASSEN_H
+#ifndef __S_H
+#define __S_H
 /*
  * strassen.h
  *
