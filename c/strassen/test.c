@@ -5,6 +5,7 @@
 #include "test_config.h"
 #include <float.h>
 #include <math.h>
+#include "s.h"
 
 /*double max_arr_value = floor(sqrt(DBL_MAX));*/
 int round_up_power_of_two(int n)
@@ -28,6 +29,25 @@ void arr_multiply(double** a, double** b, double** c, int n)
             for (k = 0; k < n; k++) {
                 c[i][j] += a[i][k] * b[k][j];
             }
+        }
+    }
+}
+void arr_add(double** a, double** b, double** c, int n)
+{
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = a[i][j] + b[i][j];
+        }
+    }
+}
+
+void arr_sub(double** a, double** b, double** c, int n)
+{
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = a[i][j] - b[i][j];
         }
     }
 }
@@ -250,11 +270,15 @@ void testxx(void)
 ****************************************************************/
 double** new_arr(int m, int n)
 {
-    int i;
+    int i, j;
     double** r;
     r = (double**)malloc(sizeof(double*) * m);
     for (i = 0; i < m; i++) {
         r[i] = (double*)malloc(sizeof(double) * n);
+        for (j = 0; j < n; j++)
+        {
+            r[i][j] = 0;
+        }
     }
     return r;
 }
@@ -265,6 +289,18 @@ void del_arr(double** r, int m)
     for (i = 0; i < m; i++) {
         free(r[i]);
     }
+    free(r);
+}
+
+double** new_arr_p(int m)
+{
+    double** r;
+    r = (double**)malloc(sizeof(double*) * m);
+    return r;
+}
+
+void del_arr_p(double** r)
+{
     free(r);
 }
 
@@ -338,7 +374,7 @@ void testxx1(void)
 matrix_s new_matrix_s(double** a)
 {
     matrix_s s;
-    s = (matrix_s)malloc(sizeof(double**)*5);
+    s = (matrix_s)malloc(sizeof(double**));
     s->d = a;
     /*printf("%x\n", (unsigned int)s->p[0]);*/
     /*printf("%x\n", (unsigned int)s->p[1]);*/
@@ -547,10 +583,11 @@ void dump_result(strassen_test_object* r)
     /*dump_arr(t->b->d, t->dim_r, t->dim_r);*/
     /*dump_arr(t->c->d, t->dim_r, t->dim_r);*/
     /*dump_arr(t->d->d, t->dim_r, t->dim_r);*/
-
-    /*dump_arr(r->c->d, r->dim, r->dim);*/
-    /*dump_arr(r->d->d, r->dim, r->dim);*/
-
+#if 0
+    dump_arr(r->a->d, r->dim_r, r->dim_r);
+    dump_arr(r->c->d, r->dim_r, r->dim_r);
+    dump_arr(r->d->d, r->dim_r, r->dim_r);
+#endif
     /*
      *printf("time strassen = %f\n", r->t[1] - r->t[0]);
      *printf("time normal   = %f\n", r->t[3] - r->t[2]);
@@ -571,21 +608,25 @@ void test_main(int n)
 
     t = new_strassen_test_object(n);
     /* set test pattern */
-    /*rand_arr(t->a->d, t->dim, t->dim);*/
-    /*rand_arr(t->b->d, t->dim, t->dim);*/
+//    rand_arr(t->a->d, t->dim, t->dim);
+//    rand_arr(t->b->d, t->dim, t->dim);
     set_ones_arr(t->a->d, t->dim, t->dim);
     set_ones_arr(t->b->d, t->dim, t->dim);
 
     /*test_update_s(t->a, t->dim_r);*/
     /* perform strassen algorithm */
     /*t->t[0] = clock();*/
-    multiply(t->dim_r, t->a, t->b, t->c, t->d);
+    /* multiply(t->dim_r, t->a, t->b, t->c, t->d); */
+    s_mul(t->dim_r, t->a->d, t->b->d, t->c->d, t->d->d);
+//    s_sub(t->dim_r, t->a->d, t->b->d, t->c->d);
     /*t->t[1] = clock();*/
 
     /* perform normal */
     /*t->t[2] = clock();*/
     arr_multiply(t->a->d, t->b->d, t->d->d, t->dim);
+//    arr_sub(t->a->d, t->b->d, t->d->d, t->dim);
     /*t->t[3] = clock();*/
+    arr_sub(t->c->d, t->d->d, t->b->d, t->dim);
 
     dump_result(t);
     printf("comp c, d = %d\n", comp_arr(t->c->d, t->d->d, t->dim, t->dim));

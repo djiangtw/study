@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 /*#include "matrix.h"*/
 #include "strassen.h"
 
@@ -9,7 +10,7 @@ extern matrix_s new_matrix_s(double** a);
  * Courtesy [Buhler 1993].
  * Routines to realize the Strassen recursive matrix multiplication.
  * Multiply n by n matrices a and b, putting the result in c, and
- * using the matrix d as scratch space.  The Strassen algorithm is: 
+ * using the matrix d as scratch space.  The Strassen algorithm is:
  *
  *      q7 = (a12-a22)(b21+b22)
  *      q6 = (-a11+a21)(b11+b12)
@@ -27,11 +28,11 @@ extern matrix_s new_matrix_s(double** a);
  * Each line of multiply() that recursively calls itself computes one
  * of the q's.  Four scratch half-size matrices are required by the
  * sequence of computations here; with some rearrangement this
- * storage requirement can be reduced to three half-size matrices. 
+ * storage requirement can be reduced to three half-size matrices.
  *
  * The small matrix computations (i.e., for n <= BREAK) can be
  * optimized considerably from those given here; in particular, this
- * is important to do before the value of BREAK is chosen optimally. 
+ * is important to do before the value of BREAK is chosen optimally.
  *
  */
 
@@ -40,10 +41,12 @@ void update_matrix_s(matrix_s a, int n)
     /*printf("%x\n", (unsigned int)a);*/
     /*printf("%x\n", (unsigned int)a->p[0]);*/
     /*printf("%x\n", (unsigned int)a->p[1]);*/
-    a->p[0]->d = a->d;
-    a->p[1]->d = &a->d[0] + n / 2;
-    a->p[2] = a->p[2][n / 2];
-    a->p[3] = a->p[3]d[n / 2] + n / 2;
+
+    /*a->p[0]->d = a->d;*/
+    /*a->p[1]->d = &a->d[0] + n / 2;*/
+    /*a->p[2] = a->p[2][n / 2];*/
+    /*a->p[3] = a->p[3]d[n / 2] + n / 2;*/
+
     /*printf("%x\n", (unsigned int)a);*/
     /*printf("%x\n", (unsigned int)a->p[0]);*/
     /*printf("%x\n", (unsigned int)a->p[1]);*/
@@ -54,6 +57,26 @@ void recover_matrix_s(matrix_s a)
     a->p[0] = a->p[4];
 }
 
+double*** split_matrix_s(matrix_s a, int n)
+{
+    int i;
+    double*** p;
+
+    p = (double***)malloc(sizeof(double**)*4);
+    for(i = 0; i < 4; i++)
+    {
+        p[i] = malloc(sizeof(double*)*n);
+    }
+    for(i=0; i < n; i++)
+    {
+        p[0] = &a->d[i];
+        p[1] = &a->d[i] + n;
+        p[2] = &a->d[i + n];
+        p[3] = &a->d[i + n] + n;
+    }
+
+    return p;
+}
 /* c = a*b */
 void multiply(int n, matrix_s a, matrix_s b, matrix_s c, matrix_s d)
 {
@@ -144,6 +167,7 @@ void sub(int n, matrix_s a, matrix_s b, matrix_s c)
             }
         }
     } else {
+//        double*** p;
         n /= 2;
         sub(n, a11, b11, c11);
         sub(n, a12, b12, c12);

@@ -1,4 +1,4 @@
-#!/tools/bin/bash
+#!/usr/bin/bash
 make clean
 make
 

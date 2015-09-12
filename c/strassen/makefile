@@ -1,5 +1,5 @@
 CC = gcc
-SRC = foo.c test.c strassen.c
+SRC = foo.c test.c strassen.c s.c
 REL = foo
 CFLAG = -Wall -pg -g
 
