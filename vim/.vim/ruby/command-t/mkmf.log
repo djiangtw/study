@@ -1,0 +1,164 @@
+find_header: checking for float.h... -------------------- yes
+
+"gcc -o conftest -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include conftest.c  -L. -L/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -Wl,-R/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -L. -L/usr/brcm/oss/lib64 -R/usr/brcm/oss/lib64 -L/usr/brcm/oss/lib -R/usr/brcm/oss/lib -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -L/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -lruby-static  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+gcc: unrecognized option '-R/usr/brcm/oss/lib64'
+gcc: unrecognized option '-R/usr/brcm/oss/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <float.h>
+/* end */
+
+--------------------
+
+find_header: checking for ruby.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby.h>
+/* end */
+
+--------------------
+
+find_header: checking for stdlib.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <stdlib.h>
+/* end */
+
+--------------------
+
+find_header: checking for string.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <string.h>
+/* end */
+
+--------------------
+
+have_header: checking for fcntl.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <fcntl.h>
+/* end */
+
+--------------------
+
+have_header: checking for stdint.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <stdint.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/errno.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/errno.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/socket.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/socket.h>
+/* end */
+
+--------------------
+
+have_header: checking for ruby/st.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/st.h>
+/* end */
+
+--------------------
+
+have_header: checking for st.h... -------------------- yes
+
+"gcc -E -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include  conftest.c -o conftest.i"
+In file included from conftest.c:3:
+/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward/st.h:2:2: warning: #warning use "ruby/st.h" instead of bare "st.h"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <st.h>
+/* end */
+
+--------------------
+
+have_library: checking for pthread_create() in -lpthread... -------------------- yes
+
+"gcc -o conftest -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include conftest.c  -L. -L/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -Wl,-R/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -L. -L/usr/brcm/oss/lib64 -R/usr/brcm/oss/lib64 -L/usr/brcm/oss/lib -R/usr/brcm/oss/lib -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -L/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -lruby-static -lpthread  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+gcc: unrecognized option '-R/usr/brcm/oss/lib64'
+gcc: unrecognized option '-R/usr/brcm/oss/lib'
+conftest.c: In function 't':
+conftest.c:5: error: 'pthread_create' undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))pthread_create; return 0; }
+/* end */
+
+"gcc -o conftest -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/x86_64-linux -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1/ruby/backward -I/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/include/ruby-1.9.1 -I. -I/usr/brcm/oss/include  -I/usr/brcm/oss/include -I/usr/brcm/oss/include conftest.c  -L. -L/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -Wl,-R/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -L. -L/usr/brcm/oss/lib64 -R/usr/brcm/oss/lib64 -L/usr/brcm/oss/lib -R/usr/brcm/oss/lib -rdynamic -Wl,-export-dynamic     -Wl,-R -Wl,/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -L/tools/oss/packages/x86_64-rhel5/ruby/1.9.3-p194/lib -lruby-static -lpthread  -lpthread -lrt -ldl -lcrypt -lm   -lc"
+gcc: unrecognized option '-R/usr/brcm/oss/lib64'
+gcc: unrecognized option '-R/usr/brcm/oss/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { pthread_create(); return 0; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/projects/wpan_git_ext1/dannyj/fw2_master/fw2/mpaf/apps/driver_test'
+let g:netrw_dirhist_2='/projects/wpan_git_ext1/dannyj/fw2_20739A0_25/fw2/build/spar/test'
+let g:netrw_dirhist_3='/projects/wpan_git/jiah/fw20739A0_25/fw2/build/spar/brcm'

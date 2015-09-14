@@ -41,7 +41,7 @@ set hlsearch
 
 " set mouse=a, let you be able to change cursor by mouse
 "set mouse=a
-" set mouse=nv
+set mouse=nv
 
 " following two lines remap copy/paste plus shit key
 "map m :set mouse=a<CR>
@@ -252,8 +252,7 @@ let g:molokai_original = 1
 " filetype on
 filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
-"imap <silent> ` <C-X><C-O>
+" imap <silent> ` <C-X><C-O>
 
-" enable cvim support
 let g:C_UseTool_cmake   = 'yes'
 let g:C_UseTool_doxygen = 'yes'
