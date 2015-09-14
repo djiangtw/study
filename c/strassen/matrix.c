@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:  matrix.h
+ *       Filename:  matrix.c
  *
- *    Description:  abstract of matrix functions
+ *    Description:  implementation of matrix functions
  *
  *        Version:  1.0
  *        Created:  09/14/2015 10:49:54 AM
@@ -16,20 +16,20 @@
  * =====================================================================================
  */
 
-#ifndef __MATRIX_H__
-#define __MATRIX_H__
+#include <stdlib.h>
+#include "matrix.h"
 
-//#define DIM             5
-//#define MAX_DIM         10000
-//#define MATRIX_DUMPALL  1
-typedef struct matrix_t
+matrix* new_matrix(double** a)
 {
-    /*int n;*/
-    /*int rn;*/
-    double** a;
-} matrix;
+    matrix* r;
+    r = (matrix*)malloc(sizeof(matrix));
+    r->a = a;
+    return r;
+}
 
-extern matrix* new_matrix(double** a);
-extern void del_matrix(matrix* a);
-#endif
+void del_matrix(matrix* a)
+{
+    free(a);
+}
+
 

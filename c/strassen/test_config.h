@@ -4,18 +4,18 @@
 #include <time.h>
 #include <math.h>
 #include <float.h>
-double** cc1p;
-double** cc2p;
-double** a;
-double** b;
-double** c;
-double** d;
-int dim = 5;
-int dim_r = 0;
-matrix_s aa;
-matrix_s bb;
-matrix_s cc;
-matrix_s dd;
+//double** cc1p;
+//double** cc2p;
+//double** a;
+//double** b;
+//double** c;
+//double** d;
+//int dim = 5;
+//int dim_r = 0;
+//matrix_s aa;
+//matrix_s bb;
+//matrix_s cc;
+//matrix_s dd;
 
 double cc1[10][10] = {
     {1, 2, 3, 4, 5, 6, 7, 8, 9, 0},

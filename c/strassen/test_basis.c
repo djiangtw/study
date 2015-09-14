@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  test.c
+ *       Filename:  test_basis.c
  *
  *    Description:  implementation of test basis for array multiply comparision.
  *
@@ -21,7 +21,6 @@
 #include <float.h>
 #include "matrix.h"
 #include "arr.h"
-#include "strassen.h"
 
 typedef struct _test_t
 {
@@ -84,7 +83,7 @@ void test_main(int n)
     set_ones_arr(p->a->a, p->n, p->n);
     set_ones_arr(p->b->a, p->n, p->n);
 
-    s_mul(p->rn, p->a->a, p->b->a, p->c->a, p->d->a);
+    arr_mul(p->a->a, p->b->a, p->c->a, p->rn);
 
     /* end of test */
     dump_result(p);
@@ -102,4 +101,5 @@ void test(int n)
         test_main(n);
     }
 }
+
 

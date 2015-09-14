@@ -2,8 +2,56 @@
 #include <stdlib.h>
 #include "matrix.h"
 #include "strassen.h"
+#include "s.h"
 #include "test_config.h"
+#include <float.h>
+#include <math.h>
 
+/*double max_arr_value = floor(sqrt(DBL_MAX));*/
+int round_up_power_of_two(int n)
+{
+    int ret = 1;
+    while(ret < n)
+    {
+        ret *= 2;
+        if(ret > MAX_DIM)
+            return -1;
+    }
+    return ret;
+}
+
+void arr_multiply(double** a, double** b, double** c, int n)
+{
+    int i, j, k;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = 0;
+            for (k = 0; k < n; k++) {
+                c[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+}
+void arr_add(double** a, double** b, double** c, int n)
+{
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = a[i][j] + b[i][j];
+        }
+    }
+}
+
+void arr_sub(double** a, double** b, double** c, int n)
+{
+    int i, j;
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = a[i][j] - b[i][j];
+        }
+    }
+}
+#if 0
 void matrix_multiply(matrix* a, matrix* b, matrix* c)
 {
     int i, j, k;
@@ -75,18 +123,6 @@ void array_copy(double** dest, double* src, int size)
          */
         printf("\n");
     }
-}
-
-int round_up_power_of_two(int n)
-{
-    int ret = 1;
-    while(ret < n)
-    {
-        ret *= 2;
-        if(ret > MAX_DIM)
-            return -1;
-    }
-    return ret;
 }
 
 matrix* matrix_init(int n)
@@ -219,29 +255,396 @@ void testxx(void)
     matrix_delete(e);
     matrix_delete(f);
 }
+#endif
+/*****************************************************************
+* Function:
+*
+* Abstract:
+*
+* Input/Output:
+*
+* Return:
+*
+* Notices:
+*   new implementation from new to
+****************************************************************/
+double** new_arr(int m, int n)
+{
+    int i, j;
+    double** r;
+    r = (double**)malloc(sizeof(double*) * m);
+    for (i = 0; i < m; i++) {
+        r[i] = (double*)malloc(sizeof(double) * n);
+        for (j = 0; j < n; j++)
+        {
+            r[i][j] = 0;
+        }
+    }
+    return r;
+}
+
+void del_arr(double** r, int m)
+{
+    int i;
+    for (i = 0; i < m; i++) {
+        free(r[i]);
+    }
+    free(r);
+}
+
+double** new_arr_p(int m)
+{
+    double** r;
+    r = (double**)malloc(sizeof(double*) * m);
+    return r;
+}
+
+void del_arr_p(double** r)
+{
+    free(r);
+}
+
+void dump_arr(double** r, int m, int n)
+{
+    int i, j;
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            printf("%6.1f ", r[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void copy_arr(double** dest, double** src, int m, int n)
+{
+    int i, j;
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            dest[i][j] = src[i][j];
+        }
+    }
+}
+
+void init_two_arrays(void)
+{
+    int i, j;
+    int m = 10;
+    int n = 10;
+    cc1p = new_arr(m, n);
+    cc2p = new_arr(m, n);
+
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            cc1p[i][j] = cc1[i][j];
+            cc2p[i][j] = cc2[i][j];
+        }
+    }
+}
+
+void del_two_arrays(void)
+{
+    del_arr(cc1p, 10);
+    del_arr(cc2p, 10);
+}
 
 void testxx1(void)
 {
+    int m = 5;
+    int n = 5;
+    int i;
+    double** a[5];
+
+    for (i = 0; i < 5; i++) {
+        a[i] = new_arr(m, n);
+    }
+
+    copy_arr(a[0], cc1p, m, n);
+    copy_arr(a[1], cc2p, m, n);
+
+    for (i = 0; i < 5; i++) {
+        dump_arr(a[i], m, n);
+        printf("\n");
+    }
+
+    for (i = 0; i < 5; i++) {
+        del_arr(a[i], m);
+    }
 }
 
-void test(void)
+matrix_s new_matrix_s(double** a)
 {
-    testxx();
-    testxx1();
-#if 0
-    a.n = 3;
-    b.n = 3;
-    a.arr = (double**)malloc(sizeof(double) * 9);
-    b.arr = (double**)malloc(sizeof(double) * 9);
+    matrix_s s;
+    s = (matrix_s)malloc(sizeof(double**));
+    s->d = a;
+    /*printf("%x\n", (unsigned int)s->p[0]);*/
+    /*printf("%x\n", (unsigned int)s->p[1]);*/
+    /*printf("%x\n", (unsigned int)s->p[2]);*/
+    return s;
+}
+
+matrix_s new_matrix_s_1(double** a)
+{
+    matrix_s s;
+    s = (matrix_s)malloc(sizeof(double**)*4);
+    s->d = a;
+    s->p[0] = s;
+    s->p[1] = s;
+    s->p[2] = s;
+    s->p[3] = s;
     /*
-     *a.arr = (double**)cc1;
-     *b.arr = (double**)cc2;
+     *s->p = &s;
      */
-    printf("%s\n", "test");
-    printf("%.2f\n", cc1[0][0]);
-    printf("%x, %x\n", a.arr, cc1);
-    printf("%x\n", &a);
-    matrix_dump(&a);
-    matrix_dump(&b);
+    return s;
+}
+
+void del_matrix_s(matrix_s a)
+{
+    free(a);
+}
+
+void testxx2_init(void)
+{
+    a = new_arr(dim_r, dim_r);
+    b = new_arr(dim_r, dim_r);
+    c = new_arr(dim_r, dim_r);
+    d = new_arr(dim_r, dim_r);
+    init_two_arrays();
+    aa = new_matrix_s(a);
+    bb = new_matrix_s(b);
+    cc = new_matrix_s(c);
+    dd = new_matrix_s(d);
+    /*
+     *aa->d = a;
+     *bb->d = b;
+     *cc->d = c;
+     *dd->d = d;
+     */
+}
+
+void testxx2_finish(void)
+{
+    del_arr(a, dim_r);
+    del_arr(b, dim_r);
+    del_arr(c, dim_r);
+    del_arr(d, dim_r);
+    del_two_arrays();
+    del_matrix_s(aa);
+    del_matrix_s(bb);
+    del_matrix_s(cc);
+    del_matrix_s(dd);
+}
+
+/*****************************************************************
+* Function: testxx2
+*
+* Abstract: first good trial of strassen algorithm.
+*
+* Input/Output:
+*
+* Return:
+*
+* Notices:
+****************************************************************/
+void testxx2(void)
+{
+    dim_r = round_up_power_of_two(dim);
+    testxx2_init();
+    printf("%s\n", __func__);
+    copy_arr(a, cc1p, dim, dim);
+    copy_arr(b, cc1p, dim, dim);
+    dump_arr(cc1p, 10, 10);
+    dump_arr(a, dim_r, dim_r);
+    dump_arr(b, dim_r, dim_r);
+
+    multiply(dim_r, aa, bb, cc, dd);
+
+    dump_arr(c, dim_r, dim_r);
+    testxx2_finish();
+}
+
+void rand_arr(double** r, int m, int n)
+{
+    int i, j;
+
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            r[i][j] = (double)(rand() % 100);
+        }
+    }
+}
+
+void set_ones_arr(double** r, int m, int n)
+{
+    int i, j;
+
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            r[i][j] = (double)(j);
+        }
+    }
+}
+void sub_arr(double** a, double** b, double** c, int m, int n)
+{
+    int i, j;
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            c[i][j] = a[i][j] - b[i][j];
+        }
+    }
+}
+
+int comp_arr(double** a, double** b, int m, int n)
+{
+    int i, j;
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
+            if((a[i][j] - b[i][j]) != 0)
+                return (-1);
+        }
+    }
+    return 0;
+}
+
+void testxx3(void)
+{
+    double** a;
+    double** b;
+    double** c;
+    srand(time(NULL));
+    a = new_arr(dim, dim);
+    b = new_arr(dim, dim);
+    c = new_arr(dim, dim);
+    rand_arr(a, dim, dim);
+    /*copy_arr(b, a, dim, dim);*/
+    rand_arr(b, dim, dim);
+    sub_arr(a, b, c, dim, dim);
+    printf("comp a, b, = %d\n", comp_arr(a, b, dim, dim));
+
+    dump_arr(a, dim, dim);
+    dump_arr(b, dim, dim);
+    dump_arr(c, dim, dim);
+
+    del_arr(a, dim);
+    del_arr(b, dim);
+    del_arr(c, dim);
+    /*
+     *printf("%f\n", sqrt(DBL_MAX));
+     *printf("%f\n", (DBL_MAX));
+     */
+}
+
+typedef struct strassen_test_object_t
+{
+    int dim;
+    int dim_r;
+    double t[4];
+    /*
+     *double** a;
+     *double** b;
+     *double** c; [> strassen multuply result <]
+     *double** d; [> strassen scratch; normal multiply result <]
+     */
+    matrix_s a;
+    matrix_s b;
+    matrix_s c; /* strassen multuply result */
+    matrix_s d; /* strassen scratch; normal multiply result */
+} strassen_test_object;
+
+strassen_test_object* new_strassen_test_object(int n)
+{
+    strassen_test_object* r;
+    r = (strassen_test_object*)malloc(sizeof(strassen_test_object));
+    r->dim = n;
+    r->dim_r = round_up_power_of_two(r->dim);
+    r->a = new_matrix_s(new_arr(r->dim_r, r->dim_r));
+    r->b = new_matrix_s(new_arr(r->dim_r, r->dim_r));
+    r->c = new_matrix_s(new_arr(r->dim_r, r->dim_r));
+    r->d = new_matrix_s(new_arr(r->dim_r, r->dim_r));
+    printf("dimension %d, %d\n", r->dim, r->dim_r);
+    return r;
+}
+
+void del_strassen_test_object(strassen_test_object* r)
+{
+    del_arr(r->d->d, r->dim_r);
+    del_arr(r->c->d, r->dim_r);
+    del_arr(r->b->d, r->dim_r);
+    del_arr(r->a->d, r->dim_r);
+    del_matrix_s(r->d);
+    del_matrix_s(r->c);
+    del_matrix_s(r->b);
+    del_matrix_s(r->a);
+    free(r);
+}
+
+void dump_result(strassen_test_object* r)
+{
+    /*dump_arr(t->a->d, t->dim_r, t->dim_r);*/
+    /*dump_arr(t->b->d, t->dim_r, t->dim_r);*/
+    /*dump_arr(t->c->d, t->dim_r, t->dim_r);*/
+    /*dump_arr(t->d->d, t->dim_r, t->dim_r);*/
+#if 0
+    dump_arr(r->a->d, r->dim_r, r->dim_r);
+    dump_arr(r->c->d, r->dim_r, r->dim_r);
+    dump_arr(r->d->d, r->dim_r, r->dim_r);
 #endif
+    /*
+     *printf("time strassen = %f\n", r->t[1] - r->t[0]);
+     *printf("time normal   = %f\n", r->t[3] - r->t[2]);
+     *printf("%f\n", clock() * 1000000);
+     */
+}
+
+void test_update_s(matrix_s a, int n)
+{
+    update_matrix_s(a, n);
+    dump_arr(a->d, n, n);
+    dump_arr(a->p[0]->d, n, n);
+}
+
+void test_main(int n)
+{
+    strassen_test_object* t;
+
+    t = new_strassen_test_object(n);
+    /* set test pattern */
+//    rand_arr(t->a->d, t->dim, t->dim);
+//    rand_arr(t->b->d, t->dim, t->dim);
+    set_ones_arr(t->a->d, t->dim, t->dim);
+    set_ones_arr(t->b->d, t->dim, t->dim);
+
+    /*test_update_s(t->a, t->dim_r);*/
+    /* perform strassen algorithm */
+    /*t->t[0] = clock();*/
+    /* multiply(t->dim_r, t->a, t->b, t->c, t->d); */
+    s_mul(t->dim_r, t->a->d, t->b->d, t->c->d, t->d->d);
+//    s_sub(t->dim_r, t->a->d, t->b->d, t->c->d);
+    /*t->t[1] = clock();*/
+
+    /* perform normal */
+    /*t->t[2] = clock();*/
+    arr_multiply(t->a->d, t->b->d, t->d->d, t->dim);
+//    arr_sub(t->a->d, t->b->d, t->d->d, t->dim);
+    /*t->t[3] = clock();*/
+    arr_sub(t->c->d, t->d->d, t->b->d, t->dim);
+
+    dump_result(t);
+    printf("comp c, d = %d\n", comp_arr(t->c->d, t->d->d, t->dim, t->dim));
+    del_strassen_test_object(t);
+}
+
+void test(int n)
+{
+    /*testxx();*/
+    /*testxx1();*/
+    /*testxx2();*/
+    /*testxx3();*/
+    if(n < 2)
+    {
+        test_main(2);
+    }
+    else
+    {
+        test_main(n);
+    }
 }
