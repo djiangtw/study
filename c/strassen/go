@@ -2,12 +2,20 @@
 make clean
 make
 
-time foo 1000
-time foo 2000
-time foo 4000
-time foo_base 2000
-time foo_base 2000
-time foo_base 4000
+foo 200 0
+foo 200 1
+foo 500 0
+foo 500 1
+#foo 1000 0
+#foo 1000 1
+foo 500 2
+foo 500 0 4
+foo 500 0 8
+foo 500 0 16
+foo 500 0 32
+foo 500 0 65
+foo 500 0 130
+foo 500 0 128
 # time foo 100
 # time foo 200
 # time foo 300

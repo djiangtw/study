@@ -1,11 +1,11 @@
 CC = gcc
-SRC = foo.c test.c strassen.c s.c arr.c matrix.c
+SRC = foo.c test.c strassen.c arr.c matrix.c
 REL = foo
-SRC_BASE = foo.c test_basis.c strassen.c s.c arr.c matrix.c
-REL_BASE = foo_base
-CFLAG = -Wall -pg -g -fprefetch-loop-arrays
+# SRC_BASE = foo.c test_basis.c strassen.c s.c arr.c matrix.c
+# REL_BASE = foo_base
+CFLAG = -Wall -pg -g
 
-all: $(REL) $(REL_BASE)
+all: $(REL)
 	@echo "make completed!"
 
 $(REL): $(SRC)

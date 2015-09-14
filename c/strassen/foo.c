@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-extern void test(int n);
+#include "test.h"
+#include "strassen.h"
 
 /**
  * @brief main
@@ -13,10 +13,24 @@ extern void test(int n);
  */
 int main(int argc, const char *argv[])
 {
-    printf("%s\n", "== start ==");
-    test(atoi(argv[1]));
-    /*
-     *test(1000);
-     */
+    switch(argc)
+    {
+        case 1:
+            test(10, 2);
+            break;
+        case 2:
+            test(atoi(argv[1]), 2);
+            break;
+        case 3:
+            test(atoi(argv[1]), atoi(argv[2]));
+            break;
+        case 4:
+            g_break = atoi(argv[3]);
+            test(atoi(argv[1]), atoi(argv[2]));
+            break;
+        default:
+            test(10, 2);
+            break;
+    }
     return 0;
 }

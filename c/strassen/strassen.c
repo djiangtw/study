@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "strassen.h"
 
-int g_break = 4;
+int g_break = 16;
 //extern void add(int n, matrix_s a, matrix_s b, matrix_s c);
 #define a11 p[0]
 #define a12 p[1]
