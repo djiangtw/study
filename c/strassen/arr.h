@@ -19,6 +19,10 @@
 #ifndef __ARR_H__
 #define __ARR_H__
 
+#define MAX_DIM 10000
+#define MAX_DATA_VALUE  46340
+#define MIN_DATA_VALUE  -46340
+
 extern int round_up_power_of_two(int n);
 extern void arr_mul(double** a, double** b, double** c, int n);
 extern void arr_add(double** a, double** b, double** c, int n);

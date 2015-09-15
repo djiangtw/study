@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "matrix.h"
 #include "arr.h"
 #include "strassen.h"
 #include "test.h"
@@ -79,32 +78,42 @@ void dump_result(test_t* t)
 }
 
 /**
- * @brief       set up data data for input marices.
+ * @brief               set up data data for input marices.
  *
- * @param t     a test object.
- * @param mode  the pattern of given data.
- *      DATA_RANDOM,    given random data 
- *      DATA_ONES,      given _
+ * @param t             a test object.
+ * @param pattern       the pattern of given data.
+ *  PATTERN_RANDOM,     apply random data to the test object input.
+ *  PATTERN_ONES,       apply all 1's to the test object input.
+ *  PATTERN_SEQS,       apply sequential data, {0, 1, 2, .., n-1} for
+ *                      each row, to the object input.
  */
-void init_test_data(test_t* t, int mode)
+void init_test_data(test_t* t, int pattern)
 {
-    if(mode == DATA_RANDOM)
+    if(pattern == PATTERN_RANDOM)
     {
         set_ones_arr(t->a->a, t->n, t->n);
         set_ones_arr(t->b->a, t->n, t->n);
     }
-    else if(mode == DATA_ONES)
+    else if(pattern == PATTERN_ONES)
     {
         set_ones_arr(t->a->a, t->n, t->n);
         set_ones_arr(t->b->a, t->n, t->n);
     }
-    else if(mode == DATA_SEQS)
+    else if(pattern == PATTERN_SEQS)
     {
         set_seqs_arr(t->a->a, t->n, t->n);
         set_seqs_arr(t->b->a, t->n, t->n);
     }
 }
 
+/**
+ * @brief       perform C = A + S(A, B), while strassen algorithm 
+ *              is applied in S().
+ *
+ * @param t     a test object.
+ *
+ * @return      0 as passed.
+ */
 int test_strassen_multiply(test_t* t)
 {
     double** tmp;
@@ -116,6 +125,14 @@ int test_strassen_multiply(test_t* t)
     return 0;
 }
 
+/**
+ * @brief       perform C = A + M(A, B), while a normal matrix multiply
+ *              function is applied in M().
+ *
+ * @param t     a test object.
+ *
+ * @return 
+ */
 int test_normal_multiply(test_t* t)
 {
     double** tmp;
@@ -127,6 +144,13 @@ int test_normal_multiply(test_t* t)
     return 0;
 }
 
+/**
+ * @brief       check if the result of matrix c and d in test object are equal.
+ *
+ * @param t     the test object.
+ *
+ * @return      0 as equal;, and -1 as inequal.
+ */
 int test_check_result(test_t* t)
 {
     int i, j;
@@ -147,7 +171,16 @@ int test_check_result(test_t* t)
     return 0;
 }
 
-int test_check_data(test_t* t)
+/**
+ * @brief       validate each element test object input matrix is valid.
+ *
+ * @param t     the test object
+ *
+ * @return      0 as all data are valid.
+ *              -1 as input matrix a is invalid.
+ *              -2 as input matrix b is invalid.
+ */
+int test_valid_data(test_t* t)
 {
     int i, j;
     for (i = 0; i < t->n; i++) {
@@ -157,16 +190,23 @@ int test_check_data(test_t* t)
             {
                 return -1;
             }
+            if(t->b->a[i][j] > MAX_DATA_VALUE ||
+               t->b->a[i][j] < MIN_DATA_VALUE)
+            {
+                return -2;
+            }
         }
     }
     return 0;
 }
 
-int is_power_of_two(unsigned int n)
-{
-      return ((n != 0) && !(n & (n - 1)));
-}
-
+/**
+ * @brief       round down a number to be power-of-two one.
+ *
+ * @param n     the number to be rounded-down
+ *
+ * @return      the rounded-down number
+ */
 int round_down_power_of_two(int n)
 {
     int tmp = 1;
@@ -177,6 +217,15 @@ int round_down_power_of_two(int n)
     return tmp / 2;
 }
 
+/**
+ * @brief       validate the value of g_break and tweak it.
+ *
+ * @param n     the number to be validated and tweaked.
+ *
+ * @return      the number has been tweaked.
+ *
+ * @note        MAX_DIM is a predefined number for max dimension of the matrices.
+ */
 int test_tweak_breaks(int n)
 {
     if(n < 2)
@@ -194,6 +243,18 @@ int test_tweak_breaks(int n)
     return n;
 }
 
+/**
+ * @brief       a test case for this matrix operation test.
+ *
+ * @param n     the dimension of input metrices.
+ * @param ops   the operations for this test.
+ *
+ * @return      the elapsed time in mini-second.
+ *
+ * @note        the users can modify the time elapse functions in their
+ *              specific platform to calculate the performance of the
+ *              matrix operation test.
+ */
 double test_case(int n, int ops)
 {
     int result;
@@ -203,10 +264,9 @@ double test_case(int n, int ops)
     p = new_test(n);
 
     /* init test data */
-    init_test_data(p, DATA_RANDOM);
+    init_test_data(p, PATTERN_RANDOM);
 
     /* operations and tests */
-
     start = clock();
     switch(ops)
     {
@@ -220,10 +280,6 @@ double test_case(int n, int ops)
             test_strassen_multiply(p);
             test_normal_multiply(p);
             result = test_check_result(p);
-            /*
-             *printf("%s\n", (test_check_result(p) == 0) ?
-             *       "passed": "failed");
-             */
             break;
         default:
             printf("%s\n", "invalid ops!");
@@ -243,9 +299,22 @@ double test_case(int n, int ops)
     return difftime(end, start);
 }
 
+/**
+ * @brief       entry of test.
+ *
+ * @param n     the dimension of input matrices.
+ * @param ops   the operation code of test
+ * OP_STRASSEN_MULTIPLY     perform C = A + S(A, B), where {A, B, C} are mapped to
+ *                          {a, b, c} in test object.
+ * OP_NORMAL_MULTIPLY       perform D = A + M(A, B), where {A, B, D} are mapped to
+ *                          {a, b, d} in test object.
+ * OP_VERIFY_CORRECTNESS    per form C = A + S(A, B) and D = A + M(A, B), where
+ *                          {A, B, C, D} are mapped to {a, b, c, d} in test object.
+ *                          And then, compare the matrix C and D to see if the results
+ *                          are the same.
+ */
 void test(int n, int ops)
 {
-    /*printf("strassen breaks = %d\n", g_break = test_tweak_breaks(g_break));*/
     if(n < 2)
     {
         test_case(2, ops);

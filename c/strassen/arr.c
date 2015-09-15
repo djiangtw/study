@@ -20,8 +20,6 @@
 #include <stdlib.h>
 #include "arr.h"
 
-#define MAX_DIM 10000
-
 int round_up_power_of_two(int n)
 {
     int ret = 1;

@@ -11,6 +11,7 @@ all: $(REL)
 $(REL): $(SRC)
 	@$(CC) -o $@ $(CFLAG) $^
 	@objcopy --only-keep-debug $@ $@.debug
+	@echo $(SRC)
 
 $(REL_BASE): $(SRC_BASE)
 	@$(CC) -o $@ $(CFLAG) $^
