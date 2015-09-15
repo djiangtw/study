@@ -10,7 +10,7 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  YOUR NAME (), 
+ *         Author:  Danny Jiang (), xinyi904314@yahoo.com.tw
  *   Organization:  
  *
  * =====================================================================================
@@ -31,6 +31,7 @@ extern void dump_arr(double** r, int m, int n);
 extern void copy_arr(double** dest, double** src, int m, int n);
 extern void rand_arr(double** r, int m, int n);
 extern void set_ones_arr(double** r, int m, int n);
+extern void set_seqs_arr(double** r, int m, int n);
 extern void sub_arr(double** a, double** b, double** c, int m, int n);
 extern int comp_arr(double** a, double** b, int m, int n);
 

@@ -18,13 +18,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include <float.h>
 #include <time.h>
 #include "matrix.h"
 #include "arr.h"
 #include "strassen.h"
 #include "test.h"
 
+/**
+ * @brief       create a new test object.
+ *
+ * @param n     the dimension of a matrix.
+ *
+ * @return a    pointer to new test object.
+ */
 test_t* new_test(int n)
 {
     test_t* r;
@@ -39,6 +45,11 @@ test_t* new_test(int n)
     return r;
 }
 
+/**
+ * @brief       delete a test object and release its resources.
+ *
+ * @param r     a test object.
+ */
 void del_test(test_t* r)
 {
     del_arr(r->d->a, r->rn);
@@ -52,9 +63,14 @@ void del_test(test_t* r)
     free(r);
 }
 
+/**
+ * @brief       dump test result
+ *
+ * @param t     a test object
+ */
 void dump_result(test_t* t)
 {
-#if 0
+#if TEST_DUMP_RESULT
     dump_arr(t->a->a, t->n, t->n);
     dump_arr(t->b->a, t->n, t->n);
     dump_arr(t->c->a, t->n, t->n);
@@ -62,6 +78,14 @@ void dump_result(test_t* t)
 #endif
 }
 
+/**
+ * @brief       set up data data for input marices.
+ *
+ * @param t     a test object.
+ * @param mode  the pattern of given data.
+ *      DATA_RANDOM,    given random data 
+ *      DATA_ONES,      given _
+ */
 void init_test_data(test_t* t, int mode)
 {
     if(mode == DATA_RANDOM)
@@ -73,6 +97,11 @@ void init_test_data(test_t* t, int mode)
     {
         set_ones_arr(t->a->a, t->n, t->n);
         set_ones_arr(t->b->a, t->n, t->n);
+    }
+    else if(mode == DATA_SEQS)
+    {
+        set_seqs_arr(t->a->a, t->n, t->n);
+        set_seqs_arr(t->b->a, t->n, t->n);
     }
 }
 

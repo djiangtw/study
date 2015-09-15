@@ -140,6 +140,17 @@ void set_ones_arr(double** r, int m, int n)
 
     for (i = 0; i < m; i++) {
         for (j = 0; j < n; j++) {
+            r[i][j] = 1.0;
+        }
+    }
+}
+
+void set_seqs_arr(double** r, int m, int n)
+{
+    int i, j;
+
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n; j++) {
             r[i][j] = (double)(j);
         }
     }
