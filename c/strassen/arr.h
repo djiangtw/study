@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Danny Jiang (), xinyi904314@yahoo.com.tw
- *   Organization:  
+ *   Organization:
  *
  * =====================================================================================
  */

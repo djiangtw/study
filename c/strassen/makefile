@@ -13,10 +13,10 @@ $(REL): $(SRC)
 	@objcopy --only-keep-debug $@ $@.debug
 	@echo $(SRC)
 
-$(REL_BASE): $(SRC_BASE)
-	@$(CC) -o $@ $(CFLAG) $^
-	@objcopy --only-keep-debug $@ $@.debug
+#$(REL_BASE): $(SRC_BASE)
+#	@$(CC) -o $@ $(CFLAG) $^
+#	@objcopy --only-keep-debug $@ $@.debug
 
 clean:
 	@rm -rf $(REL) $(REL).debug
-	@rm -rf $(REL_BASE) $(REL_BASE).debug
+#	@rm -rf $(REL_BASE) $(REL_BASE).debug

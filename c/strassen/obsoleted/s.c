@@ -85,18 +85,23 @@ void multiply(int n, matrix_s a, matrix_s b, matrix_s c, matrix_s d)
     update_matrix_s(c, n);
     update_matrix_s(d, n);
 
-    if (n <= BREAK) {
+    if (n <= BREAK)
+    {
         double sum, **p = a->d, **q = b->d, **r = c->d;
         int i, j, k;
 
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
+        for (i = 0; i < n; i++)
+        {
+            for (j = 0; j < n; j++)
+            {
                 for (sum = 0., k = 0; k < n; k++)
                     sum += p[i][k] * q[k][j];
                 r[i][j] = sum;
             }
         }
-    } else {
+    }
+    else
+    {
         n /= 2;
         sub(n, a12, a22, d11);
         add(n, b21, b22, d12);
@@ -133,16 +138,21 @@ void add(int n, matrix_s a, matrix_s b, matrix_s c)
     update_matrix_s(b, n);
     update_matrix_s(c, n);
 
-    if (n <= BREAK) {
+    if (n <= BREAK)
+    {
         double **p = a->d, **q = b->d, **r = c->d;
         int i, j;
 
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
+        for (i = 0; i < n; i++)
+        {
+            for (j = 0; j < n; j++)
+            {
                 r[i][j] = p[i][j] + q[i][j];
             }
         }
-    } else {
+    }
+    else
+    {
         n /= 2;
         add(n, a11, b11, c11);
         add(n, a12, b12, c12);
@@ -157,16 +167,21 @@ void sub(int n, matrix_s a, matrix_s b, matrix_s c)
     update_matrix_s(a, n);
     update_matrix_s(b, n);
     update_matrix_s(c, n);
-    if (n <= BREAK) {
+    if (n <= BREAK)
+    {
         double **p = a->d, **q = b->d, **r = c->d;
         int i, j;
 
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
+        for (i = 0; i < n; i++)
+        {
+            for (j = 0; j < n; j++)
+            {
                 r[i][j] = p[i][j] - q[i][j];
             }
         }
-    } else {
+    }
+    else
+    {
 //        double*** p;
         n /= 2;
         sub(n, a11, b11, c11);

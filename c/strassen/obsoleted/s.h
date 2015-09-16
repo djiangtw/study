@@ -24,7 +24,7 @@
 /*
  * A matrix is defined to be a pointer to a ``union _matrix'', which
  * is (if the size is <= BREAK) a matrix of numbers, or else is an
- * array of four submatrices of half size. 
+ * array of four submatrices of half size.
  */
 
 /*
@@ -33,7 +33,8 @@
  *    struct _matrix_s *p;
  *} *matrix_s;
  */
-typedef union _matrix_s {
+typedef union _matrix_s
+{
     double **d;
     union _matrix_s **p;
 } *matrix_s;
@@ -45,7 +46,7 @@ void sub(int, matrix_s, matrix_s, matrix_s);
 
 /*
  * Notational shorthand to access submatrices for matrices named
- * a,b,c,d 
+ * a,b,c,d
  */
 
 #define a11 a->p[0]

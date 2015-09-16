@@ -19,6 +19,15 @@
 #include <stdlib.h>
 #include "matrix.h"
 
+/**
+ * @brief       create a new matrix structure.
+ *
+ * @param a     the pointer to a matrix with type 'double' elements.
+ *
+ * @return 
+ *
+ * @note        the matrix structure can be expanded as necessary.
+ */
 matrix* new_matrix(double** a)
 {
     matrix* r;
@@ -27,6 +36,11 @@ matrix* new_matrix(double** a)
     return r;
 }
 
+/**
+ * @brief       release the resource of a matrix
+ *
+ * @param a     the pointer to the matrix.
+ */
 void del_matrix(matrix* a)
 {
     free(a);
