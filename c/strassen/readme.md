@@ -2,7 +2,8 @@
 - execute `make clean`; `make all` on unix/linux with gcc support.
 - run `go` script using bash shell.
 
-# Requirement
+# Objective
+## Requirement
 - [x] platform. workstation.
 - [ ] hw simd?
 - [x] data processing interface. given predefined pattern generator.
@@ -12,14 +13,14 @@
 - [x] numbers of operations, complexity.
 - [x] logical errors.
 
-# Task
+## Task
 - C = A + S(A, B);
     - [x] good coding style.
     - [x] well commented code.
     - [x] test vectors.
     - [x] strassen algorithm.
 
-# Notes
+## Notes
 - foo n ops breaks
     - n, dimension of test matrices, i.e. n-by-n.
         - the maximum dimension is 10000x10000.
@@ -36,7 +37,8 @@
         - 1, all ones.
         - 2, sequential numbers. vector {0, 1, 2, .. , n - 1} for each row, there are totally n rows.
 
-# Build Command
+# Implementation
+## Build Command
 - `make`, `make all`
     - build the target `foo`
 - `make dox`
@@ -50,7 +52,7 @@
 - `debug`
     - use gdb to debug the target.
 
-# Usage
+## Usage
 - `foo`
     - perform the verify-correctness operation with two 10-by-10 matrices.
     - the default strassen break is 16.
@@ -72,9 +74,11 @@
     - the strassen is $breaks.
     - the pattern is $pattern.
 
-# Test vectors
-- performance of strassen method|
+## Test vectors
+- performance of strassen method.
+
 n | ops | breaks | elapsed time | result
+----|-----|-----|---------------|-------
   50|    0|   16|      0.000 sec| passed
  100|    0|   16|      0.000 sec| passed
  150|    0|   16|      0.040 sec| passed
@@ -115,9 +119,13 @@ n | ops | breaks | elapsed time | result
 1900|    0|   16|     16.190 sec| passed
 1950|    0|   16|     16.270 sec| passed
 2000|    0|   16|     16.100 sec| passed
+
 - performance of common method,
+
 - verification of correctness,
 
-# dimension vs time
+## Vimension v.s. Time
 ![Image of Dimension vs Time](./doc/img/strassen.png)
 
+## Reference
+- doxygen reference, [Doxygen Refman](./doc/refman.pdf)
