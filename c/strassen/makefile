@@ -23,11 +23,16 @@ $(REL): $(SRC)
 #	@objcopy --only-keep-debug $@ $@.debug
 
 dox: foo.dox
-	@echo "hello"
 	@doxygen $^
+
+prof: $(REL) gmon.out
+	@gprof rel/foo gmon.out > doc/analysis.txt
+	@echo code analysis is generated in doc/analysis.txt
 
 clean:
 	@rm -rf $(REL_PATH)
 	@rm -rf doc/html doc/latex
+	@rm -f doc/analysis.txt
+	@rm gmon.out
 #	@rm -rf $(REL_BASE) $(REL_BASE).debug
 

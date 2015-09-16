@@ -32,7 +32,7 @@
         - 1, all ones.
         - 2, sequential numbers. vector {0, 1, 2, .. , n - 1} for each row, there are totally n rows.
 
-# usage
+# command usage
 - `foo`
     - perform the verify-correctness operation with two 10-by-10 matrices.
     - the default strassen break is 16.
@@ -59,3 +59,5 @@
 - performance of common method,
 - verification of correctness,
 
+# dimension vs time
+![Image of Dimension vs Time](./doc/img/strassen.png)
