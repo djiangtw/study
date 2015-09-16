@@ -22,6 +22,12 @@ $(REL): $(SRC)
 #	@$(CC) -o $@ $(CFLAG) $^
 #	@objcopy --only-keep-debug $@ $@.debug
 
+dox: foo.dox
+	@echo "hello"
+	@doxygen $^
+
 clean:
-	@rm -rf $(REL) $(REL).debug
+	@rm -rf $(REL_PATH)
+	@rm -rf doc/html doc/latex
 #	@rm -rf $(REL_BASE) $(REL_BASE).debug
+

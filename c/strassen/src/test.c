@@ -23,6 +23,7 @@
 #include "strassen.h"
 #include "test.h"
 
+int g_pattern = PATTERN_ONES;
 /**
  * @brief       create a new test object.
  *
@@ -68,12 +69,14 @@ void del_test(test_t* r)
  */
 void dump_result(test_t* t)
 {
-#if TEST_DUMP_RESULT
+    printf("A: %d x %d\n", t->n, t->n);
     dump_arr(t->a->a, t->n, t->n);
+    printf("B: %d x %d\n", t->n, t->n);
     dump_arr(t->b->a, t->n, t->n);
+    printf("C: %d x %d\n", t->n, t->n);
     dump_arr(t->c->a, t->n, t->n);
+    printf("D: %d x %d\n", t->n, t->n);
     dump_arr(t->d->a, t->n, t->n);
-#endif
 }
 
 /**
@@ -91,8 +94,8 @@ void init_test_data(test_t* t, int pattern)
 {
     if(pattern == PATTERN_RANDOM)
     {
-        set_ones_arr(t->a->a, t->n, t->n);
-        set_ones_arr(t->b->a, t->n, t->n);
+        rand_arr(t->a->a, t->n, t->n);
+        rand_arr(t->b->a, t->n, t->n);
     }
     else if(pattern == PATTERN_ONES)
     {
@@ -268,7 +271,7 @@ double test_case(int n, int ops)
     p = new_test(n);
 
     /* init test data */
-    init_test_data(p, PATTERN_RANDOM);
+    init_test_data(p, g_pattern);
 
     /* operations and tests */
     start = clock();
@@ -285,6 +288,12 @@ double test_case(int n, int ops)
         test_normal_multiply(p);
         result = test_check_result(p);
         break;
+    case OP_DUMP_RESULT:
+        test_strassen_multiply(p);
+        test_normal_multiply(p);
+        result = test_check_result(p);
+        dump_result(p);
+        break;
     default:
         printf("%s\n", "invalid ops!");
         break;
@@ -292,9 +301,8 @@ double test_case(int n, int ops)
     end = clock();
 
     /* end of test */
-    dump_result(p);
     del_test(p);
-    printf("%4d, %4d, %4d, %.3f sec, %s\n",
+    printf("%4d, %4d, %4d, %10.3f sec, %s\n",
            n,
            ops,
            g_break,

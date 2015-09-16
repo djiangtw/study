@@ -21,8 +21,6 @@
 
 #include "matrix.h"
 
-#define TEST_DUMP_RESULT    0
-
 typedef struct _test_t
 {
     int n;
@@ -38,6 +36,7 @@ typedef enum _PATTERN_MODE
     PATTERN_RANDOM = 0,
     PATTERN_ONES,
     PATTERN_SEQS,
+    NUMBER_OF_PATTERNS,
 } PATTERN_MODE;
 
 typedef enum _OPS
@@ -45,7 +44,11 @@ typedef enum _OPS
     OP_STRASSEN_MULTIPLY = 0,
     OP_NORMAL_MULTIPLY,
     OP_VERIFY_CORRECTNESS,
+    OP_DUMP_RESULT,
+    NUMBER_OF_OPS
 } OPS;
+
+extern int g_pattern;
 
 extern test_t* new_test(int n);
 extern void del_test(test_t* r);

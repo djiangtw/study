@@ -12,6 +12,7 @@
  *  argv[1]         the dimension of the test square matrices.
  *  argv[2]         the operations of the test.
  *  argv[3]         the number of g_break used in strassen algorithm.
+ *  argv[4]         the patterns generated for test
  *  others          reserved.
  *
  * @return int      0 as program finished well.
@@ -33,7 +34,12 @@ int main(int argc, const char *argv[])
         test(atoi(argv[1]), atoi(argv[2]));
         break;
     case 4:
+        g_break = test_tweak_breaks(atoi(argv[3]));
+        test(atoi(argv[1]), atoi(argv[2]));
+        break;
+    case 5:
         g_break = atoi(argv[3]);
+        g_pattern = (atoi(argv[4])) % NUMBER_OF_PATTERNS;
         test(atoi(argv[1]), atoi(argv[2]));
         break;
     default:

@@ -3,27 +3,31 @@ make clean
 make
 
 # with strassen algorithm
-for DIM in {10..500..10}
+echo "operation using strassen algorithm"
+for DIM in {50..2000..50}
 do
     rel/foo $DIM 0
 done
+
 # without strassen algorithm
-for DIM in {10..500..10}
+echo "operation using common algorithm"
+for DIM in {50..2000..50}
 do
     rel/foo $DIM 1
 done
 
 # check correctness
-for DIM in {10..500..10}
+echo "verification of correctness"
+for DIM in {50..2000..50}
 do
     rel/foo $DIM 2
 done
 
 # using different breaks with strassen algorithm
+echo "operation using various breaks for strassen algorithm"
 let "BREAKS=1"
-for i in {1..8}
+for i in {1..10}
 do
     let "BREAKS = BREAKS * 2"
-#    echo $BREAKS
-    rel/foo 500 0 $BREAKS
+    rel/foo 2000 0 $BREAKS
 done
