@@ -32,7 +32,7 @@
         - 1, all ones.
         - 2, sequential numbers. vector {0, 1, 2, .. , n - 1} for each row, there are totally n rows.
 
-# command usage
+# usage
 - `foo`
     - perform the verify-correctness operation with two 10-by-10 matrices.
     - the default strassen break is 16.
@@ -61,3 +61,17 @@
 
 # dimension vs time
 ![Image of Dimension vs Time](./doc/img/strassen.png)
+
+# build command
+- `make`, `make all`
+    - build the target `foo`
+- `make dox`
+    - generate doxygen documents.
+- `make prof`
+    - before building analysis file, run `foo` to generate a gmon.out file.
+- `make clean`
+    - remove all generated files.
+- `go`
+    - use a bash script to build and run the test automatically.
+- `debug`
+    - use gdb to debug the target.
