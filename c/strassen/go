@@ -2,28 +2,28 @@
 make clean
 make
 
-foo 200 0
-foo 200 1
-foo 500 0
-foo 500 1
-#foo 1000 0
-#foo 1000 1
-foo 500 2
-foo 500 0 4
-foo 500 0 8
-foo 500 0 16
-foo 500 0 32
-foo 500 0 65
-foo 500 0 130
-foo 500 0 128
-# time foo 100
-# time foo 200
-# time foo 300
-# time foo 400
-# time foo 500
-# 
-# time foo_base 100
-# time foo_base 200
-# time foo_base 300
-# time foo_base 400
-# time foo_base 500
+# with strassen algorithm
+for DIM in {10..500..10}
+do
+    rel/foo $DIM 0
+done
+# without strassen algorithm
+for DIM in {10..500..10}
+do
+    rel/foo $DIM 1
+done
+
+# check correctness
+for DIM in {10..500..10}
+do
+    rel/foo $DIM 2
+done
+
+# using different breaks with strassen algorithm
+let "BREAKS=1"
+for i in {1..8}
+do
+    let "BREAKS = BREAKS * 2"
+#    echo $BREAKS
+    rel/foo 500 0 $BREAKS
+done

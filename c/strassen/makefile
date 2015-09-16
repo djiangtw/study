@@ -1,6 +1,10 @@
 CC = gcc
-SRC = foo.c test.c strassen.c arr.c matrix.c
-REL = foo
+SRC_FILES = foo.c test.c strassen.c arr.c matrix.c
+SRC_PATH = src/
+SRC = $(addprefix $(SRC_PATH), $(SRC_FILES))
+REL_FILES = foo
+REL_PATH = rel/
+REL = $(addprefix $(REL_PATH), $(REL_FILES))
 # SRC_BASE = foo.c test_basis.c strassen.c s.c arr.c matrix.c
 # REL_BASE = foo_base
 CFLAG = -Wall -pg -g
@@ -9,6 +13,7 @@ all: $(REL)
 	@echo "make completed!"
 
 $(REL): $(SRC)
+	@mkdir -p rel
 	@$(CC) -o $@ $(CFLAG) $^
 	@objcopy --only-keep-debug $@ $@.debug
 	@echo $(SRC)
