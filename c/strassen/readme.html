@@ -1,0 +1,1099 @@
+<h1 id="quick-start">Quick Start</h1>
+<ul>
+<li>execute <code>make clean</code>; <code>make all</code> on unix/linux with gcc support.</li>
+<li>run <code>go</code> script using bash shell.</li>
+</ul>
+<h1 id="objective">Objective</h1>
+<h2 id="requirement">Requirement</h2>
+<ul>
+<li>[x] platform. workstation.</li>
+<li>[ ] hw simd?</li>
+<li>[x] data processing interface. given predefined pattern generator.</li>
+<li>[x] reference documtn. wiki page</li>
+<li>[x] anci c code.</li>
+<li>[x] data type. flexible to change data type.</li>
+<li>[x] numbers of operations, complexity.</li>
+<li>[x] logical errors.</li>
+</ul>
+<h2 id="task">Task</h2>
+<ul>
+<li>C = A + S(A, B);
+<ul>
+<li>[x] good coding style.</li>
+<li>[x] well commented code.</li>
+<li>[x] test vectors.</li>
+<li>[x] strassen algorithm.</li>
+</ul></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>foo n ops breaks
+<ul>
+<li>n, dimension of test matrices, i.e. n-by-n.
+<ul>
+<li>the maximum dimension is 10000x10000.</li>
+</ul></li>
+<li>ops, operations
+<ul>
+<li>0, C = A + S(A, B) using strassen algorithm</li>
+<li>1, C = A + M(A, B) using common matrices multiplication.</li>
+<li>2, perform ops 0 and 1, and compare the results to verify the correctness.</li>
+<li>3, perform ops 2 and dump the result.</li>
+</ul></li>
+<li>breaks,
+<ul>
+<li>the dimension of unit matrix for strassen algorithm.</li>
+<li>defailt is 16, i.e. the dimension of unit matrix is 16x16.</li>
+</ul></li>
+<li>patterns,
+<ul>
+<li>0, random numbers. the range is from -46340 to 46340.</li>
+<li>1, all ones.</li>
+<li>2, sequential numbers. vector {0, 1, 2, .. , n - 1} for each row, there are totally n rows.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="implementation">Implementation</h1>
+<h2 id="build-command">Build Command</h2>
+<ul>
+<li><code>make</code>, <code>make all</code>
+<ul>
+<li>build the target <code>foo</code></li>
+</ul></li>
+<li><code>make dox</code>
+<ul>
+<li>generate doxygen documents.</li>
+</ul></li>
+<li><code>make prof</code>
+<ul>
+<li>before building analysis file, run <code>foo</code> to generate a gmon.out file.</li>
+</ul></li>
+<li><code>make clean</code>
+<ul>
+<li>remove all generated files.</li>
+</ul></li>
+<li><code>go</code>
+<ul>
+<li>use a bash script to build and run the test automatically.</li>
+</ul></li>
+<li><code>debug</code>
+<ul>
+<li>use gdb to debug the target.</li>
+</ul></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<ul>
+<li><code>foo</code>
+<ul>
+<li>perform the verify-correctness operation with two 10-by-10 matrices.</li>
+<li>the default strassen break is 16.</li>
+<li>the default pattern is all-ones.</li>
+</ul></li>
+<li><code>foo $n</code>
+<ul>
+<li>perform the verify-correctness operation with two <span class="math"><em>n</em> − <em>b</em><em>y</em></span>n matrices.</li>
+<li>the default strassen break is 16.</li>
+<li>the default pattern is all-ones.</li>
+</ul></li>
+<li><code>foo $n $ops</code>
+<ul>
+<li>perform the $ops operation with two <span class="math"><em>n</em> − <em>b</em><em>y</em></span>n matrices.</li>
+<li>the default strassen break is 16.</li>
+<li>the default pattern is all-ones.</li>
+</ul></li>
+<li><code>foo $n $ops $breaks</code>
+<ul>
+<li>perform the $ops operation with two <span class="math"><em>n</em> − <em>b</em><em>y</em></span>n matrices.</li>
+<li>the strassen is $breaks.</li>
+<li>the default pattern is all-ones.</li>
+</ul></li>
+<li><code>foo $n $ops $breaks $pattern</code>
+<ul>
+<li>perform the $ops operation with two <span class="math"><em>n</em> − <em>b</em><em>y</em></span>n matrices.</li>
+<li>the strassen is $breaks.</li>
+<li>the pattern is $pattern.</li>
+</ul></li>
+</ul>
+<h2 id="test-vectors">Test vectors</h2>
+<ul>
+<li>performance of strassen method.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">n</th>
+<th align="right">ops</th>
+<th align="right">breaks</th>
+<th align="center">elapsed time</th>
+<th align="right">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">50</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.000 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">100</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.000 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">150</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.040 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">200</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.040 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">250</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.040 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">300</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.300 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">350</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.300 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">400</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.300 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">450</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.300 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">0.300 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">550</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.200 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">600</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.200 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">650</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.190 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">700</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.210 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">750</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.200 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">800</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.210 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">850</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.190 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">900</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.190 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">950</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.200 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1000</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">2.210 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1050</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.160 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1100</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.110 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1150</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.130 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1200</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.130 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1250</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.130 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1300</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.110 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1350</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.150 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1400</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.110 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1450</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.130 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1500</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.130 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1550</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.150 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1600</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.440 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1650</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.830 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1700</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.200 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1750</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.250 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1800</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.450 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1850</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.200 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1900</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.190 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1950</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.270 sec</td>
+<td align="right">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="center">16.100 sec</td>
+<td align="right">passed</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>performance of common method.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">n</th>
+<th align="left">ops</th>
+<th align="left">breaks</th>
+<th align="left">elapsed time</th>
+<th align="left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">50</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.000 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">100</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.000 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">150</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.010 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">200</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.030 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">250</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.070 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">300</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.150 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">350</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.240 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">400</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.350 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">450</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.520 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.710 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">550</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">0.960 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">600</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">1.260 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">650</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">1.600 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">700</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">2.000 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">750</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">2.470 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">800</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">3.010 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">850</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">3.610 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">900</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">4.270 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">950</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">5.040 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1000</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">5.890 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1050</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">7.380 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1100</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">8.670 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1150</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">10.110 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1200</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">11.740 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1250</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">14.210 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1300</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">17.460 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1350</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">19.700 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1400</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">21.440 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1450</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">25.980 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1500</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">31.120 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1550</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">33.030 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1600</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">37.550 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1650</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">45.230 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1700</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">51.620 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1750</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">61.670 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1800</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">70.390 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1850</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">77.940 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1900</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">97.090 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1950</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">103.040 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">1</td>
+<td align="left">16</td>
+<td align="left">103.320 sec</td>
+<td align="left">passed</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>verification of correctness.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">n</th>
+<th align="left">ops</th>
+<th align="left">breaks</th>
+<th align="left">elapsed time</th>
+<th align="left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">50</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.000 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">100</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.000 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">150</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.050 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">200</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.080 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">250</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.110 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">300</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.450 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">350</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.540 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">400</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.670 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">450</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">0.830 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">1.020 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">550</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">3.170 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">600</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">3.450 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">650</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">3.790 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">700</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">4.200 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">750</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">4.670 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">800</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">5.200 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">850</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">5.810 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">900</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">6.480 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">950</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">7.240 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1000</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">8.100 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1050</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">23.510 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1100</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">24.880 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1150</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">26.290 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1200</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">28.080 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1250</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">29.150 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1300</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">30.330 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1350</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">32.240 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1400</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">33.550 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1450</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">38.250 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1500</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">37.690 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1550</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">42.050 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1600</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">46.740 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1650</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">54.920 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1700</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">65.850 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1750</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">74.590 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1800</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">84.310 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1850</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">91.450 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">1900</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">98.830 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">1950</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">124.250 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">2</td>
+<td align="left">16</td>
+<td align="left">121.180 sec</td>
+<td align="left">passed</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>using various breaks for strassen algorithm.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">n</th>
+<th align="left">ops</th>
+<th align="left">breaks</th>
+<th align="left">elapsed time</th>
+<th align="left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">2</td>
+<td align="left">199.550 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">4</td>
+<td align="left">49.790 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">8</td>
+<td align="left">22.540 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">16</td>
+<td align="left">16.110 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">32</td>
+<td align="left">15.870 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">64</td>
+<td align="left">17.320 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">128</td>
+<td align="left">18.600 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">256</td>
+<td align="left">20.670 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="odd">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">512</td>
+<td align="left">25.160 sec</td>
+<td align="left">passed</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">1024</td>
+<td align="left">29.180 sec</td>
+<td align="left">passed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vimension-v.s.-time">Vimension v.s. Time</h2>
+<div class="figure">
+<img src="./doc/img/strassen.png" alt="Image of Dimension vs Time" /><p class="caption">Image of Dimension vs Time</p>
+</div>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>doxygen reference, <a href="./doc/refman.pdf">Doxygen Refman</a></li>
+</ul>
