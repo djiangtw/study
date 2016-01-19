@@ -1,5 +1,5 @@
 CC=gcc
-CFLAG=
+CFLAG=-Wall
 
 all: ds rand
 	@echo "compile done"

@@ -17,8 +17,19 @@
  */
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
-int my_rand()
+void my_exit(void)
+{
+    printf("%s %s\n", __FILE__, "is finished successfully.");
+}
+
+void my_exit2(void)
+{
+    printf("%s\n", __TIME__);
+}
+
+int my_rand(void)
 {
     int i;
     srand(time(NULL));
@@ -31,8 +42,9 @@ int my_rand()
 
 int main(int argc, const char *argv[])
 {
-    printf("%s\n", "rand program");
+    atexit(my_exit);
+    atexit(my_exit2);
 
     my_rand();
-    return 0;
+    exit(EXIT_SUCCESS);
 }
