@@ -18,8 +18,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int my_rand()
+{
+    int i;
+    srand(time(NULL));
+    for (i = 0; i < 10; i++) {
+        printf("%d ", rand() % 100);
+    }
+    printf("\n");
+    return EXIT_SUCCESS;
+}
+
 int main(int argc, const char *argv[])
 {
     printf("%s\n", "rand program");
+
+    my_rand();
     return 0;
 }
